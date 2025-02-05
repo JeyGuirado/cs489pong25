@@ -14,6 +14,9 @@ function Player:draw()
 end
 
 function Player:update(dt)
+    if self.score >= 5 then 
+        return true
+    end
 end
 
 function Player:moveUp(dt)
@@ -39,6 +42,7 @@ function Player:collision(ball)
     else
         return false
     end -- end if
+
 end -- end function
 
 return Player

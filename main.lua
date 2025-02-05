@@ -26,8 +26,8 @@ end
 -- Update our variables in the game loop
 function love.update(dt)
     if gameState == "play" then
-        player1:update(dt)
-        player2:update(dt)
+        score1 = player1:update(dt)
+        score2 = player2:update(dt)
         ball:update(dt)
 
         if love.keyboard.isDown("w") then
@@ -80,7 +80,27 @@ function love.draw()
         player1:draw()
         player2:draw()
 
-        ball:draw()
+        if (player1:collision(ball))then
+            a = math.random()
+            b = math.random()
+            c = math.random()
+            change = true
+            colors = {a,b,c}
+        end
+        if (player2:collision(ball))then
+            a = math.random()
+            b = math.random()
+            c = math.random()
+            change = true
+            colors = {a,b,c}
+        end
+        if(change == true)then
+            love.graphics.setColor(colors[1], colors[2], colors[3])
+            ball:draw()
+            love.graphics.setColor(1,1,1)
+        else
+            ball:draw()
+        end
 
         love.graphics.print(player1.score,scoreFont,windowWidth/2-140,40)
         love.graphics.print(player2.score,scoreFont,windowWidth/2+100,40)
