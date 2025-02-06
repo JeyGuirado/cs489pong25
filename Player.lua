@@ -16,6 +16,8 @@ end
 function Player:update(dt)
     if self.score >= 5 then 
         return true
+    else
+        return false
     end
 end
 
