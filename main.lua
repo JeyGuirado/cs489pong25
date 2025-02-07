@@ -76,9 +76,31 @@ function love.draw()
         love.graphics.printf("CS489 Pong",scoreFont,0,100,windowWidth,"center")
         love.graphics.printf("Press Enter to Start \n or Escape to Exit",
         mainFont,0,170,windowWidth,"center")
+
+        
     elseif gameState == "play"then
         player1:draw()
         player2:draw()
+
+        -- making several white lines across the middle of the screen
+        love.graphics.setColor(1,1,1)
+        love.graphics.setLineWidth(2)
+        love.graphics.line(windowWidth/2, 0,(windowWidth/2),(1/5*windowHeight))
+        love.graphics.line(windowWidth/2, (2*windowHeight/5),(windowWidth/2),(3/5*windowHeight))
+        love.graphics.line(windowWidth/2, (4*windowHeight/5),(windowWidth/2),(windowHeight))
+    
+        -- now want to make a bunch of smaller black lines to make it look like a dashed line
+        love.graphics.setColor(0,0,0)
+        love.graphics.line(windowWidth/2, (windowHeight/5),(windowWidth/2),(2/5*windowHeight))
+    
+        love.graphics.line(windowWidth/2, (3*windowHeight/5),(windowWidth/2),(4/5*windowHeight))
+    
+        -- resetting color so that it draws the rest of the game in white
+        love.graphics.setColor(1,1,1)
+
+        love.graphics.setLineWidth(5)
+        love.graphics.line(0, 15, windowWidth, 15)
+        love.graphics.line(0,windowHeight-20,windowWidth,windowHeight-20)
 
         if (player1:collision(ball))then
             a = math.random()
@@ -109,6 +131,7 @@ function love.draw()
     love.graphics.setLineWidth(5)
     love.graphics.line(0, 15, windowWidth, 15)
     love.graphics.line(0,windowHeight-20,windowWidth,windowHeight-20)
+
 end
 
 -- User input (not depended on time)
