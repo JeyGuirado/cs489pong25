@@ -1,6 +1,5 @@
 local Player = require "Player"
 local Ball = require "Ball"
-
 windowWidth = 800
 windowHeight = 600
 
@@ -25,6 +24,7 @@ end
 
 -- Update our variables in the game loop
 function love.update(dt)
+    
     if gameState == "play" then
         score1 = player1:update(dt)
         score2 = player2:update(dt)
@@ -66,7 +66,16 @@ function love.update(dt)
             ball:handleCollision()
             soundHit:play()
         end
+        if(score1)then
+            gameState="win"
+            winner = "1"
+        end
+        if(score2)then
+            gameState="win"
+            winner = "2"
+        end
     end
+    timer = timer + dt
 
 end
 
@@ -126,6 +135,10 @@ function love.draw()
 
         love.graphics.print(player1.score,scoreFont,windowWidth/2-140,40)
         love.graphics.print(player2.score,scoreFont,windowWidth/2+100,40)
+    elseif (gameState == "win")then
+        
+        love.graphics.printf("Player "..winner.." Wins!!!",scoreFont,0,100,windowWidth,"center")
+        love.graphics.printf("Press [return] to continue",scoreFont,0,300,windowWidth,"center")
     end
 
     love.graphics.setLineWidth(5)
@@ -140,5 +153,17 @@ function love.keypressed(key)
         love.event.quit()
     elseif key == "return" and gameState=="start" then
         gameState = "play"
+    elseif key == "return" and gameState=="win" then
+        gameState = "start"
+
+        -- reset scores
+        player1.score = 0
+        player2.score = 0
+
+        --Reset starting position of paddles
+        player1.x = 25
+        player1.y = windowHeight/2-40
+        player2.x = windowWidth-25
+        player2.y = windowHeight/2-40
     end
 end
