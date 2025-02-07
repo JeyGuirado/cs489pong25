@@ -1,3 +1,5 @@
+-- Authors: Jeymar Guirado and Cynthia Somers
+
 local Player = require "Player"
 local Ball = require "Ball"
 windowWidth = 800
